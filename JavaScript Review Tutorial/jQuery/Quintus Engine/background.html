@@ -1,0 +1,37 @@
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <script type="javascript/text" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script type="javascript/text" src="quintus-all.js"></script>  
+  <style>
+    /* Remove scrollbars so there is no conflict when moving player up and down */
+    body {
+      overflow:hidden;
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+  <script>
+    (function(){
+      // Include Sprite module and set game's canvas size
+      var Q = Quintus().include("Sprites")
+                      .setup({width: 800, height: 480});
+
+      var backgroundUrl = "http://www.elblender.com/wordpress/wp-content/uploads/2016/11/bg5.jpg";
+      Q.load([backgroundUrl], function(){  
+          var background = new Q.Sprite({ asset: backgroundUrl, 
+                                        x: Q.el.width / 2, 
+                                        y: Q.el.height / 2, 
+                                        type: Q.SPRITE_NONE});
+        Q.gameLoop(function(dt){
+          Q.clear();
+          background.render(Q.ctx);    
+        });
+      });
+    });
+  </script>
+  </head>
+  <body>
+
+  </body>
+</html>

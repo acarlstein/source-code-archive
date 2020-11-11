@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <script type="javascript/text" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <style>
+      /* 
+      Remove scrollbars so there is no conflict when moving player up and down
+      */
+      body {
+          overflow:hidden;
+      }
+    </style>
+    <script>
+      var canvasAttributes = {
+        width: 800,
+        height: 600
+      };
+
+      var gameCanvas = $('#gameCanvas').attr('width', canvasAttributes.width)
+                                      .attr('height', canvasAttributes.height);
+
+      var canvas = gameCanvas[0].getContext('2d');
+
+      var keys = {};
+      $('body').bind('keydown', function(e){
+        keys[e.which] = true;
+      });
+      $('body').bind('keyup', function(e){
+        keys[e.which] = false;
+      });
+
+      var image = new Image();
+
+      // Art Author: Skorpio
+      image.src="http://opengameart.org/sites/default/files/styles/medium/public/Spaceship_tut.png";
+
+      var playerPosition = {
+        x: (canvasAttributes.width / 2) - (image.width / 2),
+        y: (canvasAttributes.height / 2) - (image.height / 2)
+      };
+
+      // Game Loop when image is already loaded
+      $(image).on('load', function(){
+        var FPS = 30;
+        var FPSCycle = 1000 / FPS;
+        setInterval(function(){
+          update();
+          draw();
+        }, FPSCycle);
+      });
+        
+      var keyPressed = {
+        left: 37,
+        right: 39,
+        up: 38,
+        down: 40  
+      };
+
+      function update(){
+        if (keys[keyPressed.left]){
+          playerPosition.x -= 10;
+        }else if (keys[keyPressed.right]){
+          playerPosition.x += 10;
+        }
+        
+        if (keys[keyPressed.down]){
+          playerPosition.y += 10;
+        }else if (keys[keyPressed.up]){
+          playerPosition.y -= 10;
+        }
+        
+        applyPlayerBoundies();
+      }
+
+      function applyPlayerBoundies(){
+        playerPosition.x = limit(playerPosition.x, 0, canvasAttributes.width - image.width);
+        playerPosition.y = limit(playerPosition.y, 0, canvasAttributes.height - image.height);
+      }
+
+      function limit(value, min, max){
+        return value < min ? min : (value > max ? max : value);
+      }
+
+      function draw(){  
+        canvas.clearRect(0, 0, canvasAttributes.width, canvasAttributes.height);
+        canvas.strokeRect(0, 0, canvasAttributes.width, canvasAttributes.height);      
+        canvas.drawImage(image, playerPosition.x, playerPosition.y);  
+      }
+
+    </script>
+  </head>
+  <body>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+  </body>
+</html>

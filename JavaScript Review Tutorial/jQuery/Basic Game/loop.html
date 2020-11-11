@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <script type="javascript/text" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+      (function(){
+        var canvasWidth = 800;
+        var canvasHeight = 600;
+
+        var gameCanvas = $('#gameCanvas')
+        gameCanvas.attr('width', canvasWidth)
+                  .attr('height', canvasHeight);
+
+        var canvas = gameCanvas[0].getContext('2d');
+
+        var image = new Image();
+
+        // Art Author: Skorpio
+        image.src="http://opengameart.org/sites/default/files/styles/medium/public/Spaceship_tut.png";
+
+        // Game Loop when image is already loaded
+        $(image).on('load', function(){
+          var FPS = 30;
+          var FPSCycle = 1000 / FPS;
+          setInterval(function(){
+            update();
+            draw();
+          }, FPSCycle);
+        });
+          
+        function update(){
+          console.log("update()");
+        }
+
+        function draw(){
+          console.log("draw()");
+          
+          canvas.strokeRect(0, 0, canvasWidth, canvasHeight);  
+          
+          var centerWidth = canvasWidth / 2;
+          var centerHeight = canvasHeight / 2;
+          var centerImageToCenterWidth = centerWidth - (image.width / 2);
+          var centerImageToCenterHeight = centerHeight - (image.height / 2);     
+          canvas.drawImage(image, centerImageToCenterWidth, centerImageToCenterHeight);  
+        }
+
+      })()
+    </script>
+  </head>
+  <body>
+    <h3>Canvas: Drawing an Image</h3>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+  </body>
+</html>
