@@ -1,8 +1,8 @@
 <html>
   <head>
   <meta charset="utf-8" />
-  <script type="javascript/text" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <script type="javascript/text" src="quintus-all.js"></script>  
+  <script type="javascript/text" src="./js/jquery.min.js"></script>
+  <script type="javascript/text" src="./js/quintus-all.js"></script>  
   <style>
     /* Remove scrollbars so there is no conflict when moving player up and down */
     body {
@@ -17,7 +17,7 @@
       var Q = Quintus().include("Sprites")
                       .setup({width: 800, height: 480});
 
-      var backgroundUrl = "http://www.elblender.com/wordpress/wp-content/uploads/2016/11/bg5.jpg";
+      var backgroundUrl = "./images/bg5.jpg";
       Q.load([backgroundUrl], function(){  
           var background = new Q.Sprite({ asset: backgroundUrl, 
                                         x: Q.el.width / 2, 

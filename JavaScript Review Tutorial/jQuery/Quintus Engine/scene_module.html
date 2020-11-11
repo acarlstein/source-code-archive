@@ -14,8 +14,9 @@
   <script>
     (function(){
       // Include Sprite module and set game's canvas size
-      var Q = Quintus().include("Sprites, Anim")
-                      .setup({width: 800, height: 480});
+      var Q = Quintus().include("Sprites, Anim, Input, Scenes")
+                      .setup({width: 800, height: 480})
+                      .controls();
 
       // w: 31, h:32, left: 89, top: 166, right: 120, bottom: 198
       var backgroundUrl = "./images/bg5.jpg";
@@ -36,14 +37,36 @@
           
           this.add("animation");
           this.play("default");
+        },
+        step: function(dt){
+          if (Q.inputs['left']){
+            this.p.x -= this.p.speed;
+          }else if (Q.inputs['right']){
+            this.p.x += this.p.speed;
+          }
+          
+          this.p.x = clamp(this.p.x, 0 + (this.p.w / 2), Q.el.width - (this.p.w / 2));
         }
       });
 
-      Q.load([backgroundUrl, playerUrl, playerJsonUrl], function(){  
+      var clamp = function(value, min, max){
+        return value < min ? min : (value > max ? max : value);
+      }
+
+      Q.scene("mainLevel", function(stage) {
+        console.log("Creating scene");
         var background = new Q.Sprite({ asset: backgroundUrl, 
-                                        x: Q.el.width / 2, 
-                                        y: Q.el.height / 2, 
-                                        type: Q.SPRITE_NONE});
+                                      x: Q.el.width / 2, 
+                                      y: Q.el.height / 2, 
+                                      type: Q.SPRITE_NONE});
+        stage.insert(background);
+      
+        var player = new Q.Player();
+        stage.insert(player);
+        
+      });
+
+      Q.load([backgroundUrl, playerUrl, playerJsonUrl], function(){  
         Q.sheet("player", playerUrl,
                 {
                   tilew: 29.5,  // Each tile is 31 pixels; however, I use 29.5 pixels to make it work. I need to find out why.
@@ -53,19 +76,11 @@
                   w: 238,
                   h: 206
                 });
-
         Q.compileSheets(playerUrl, playerJsonUrl);
         Q.animations("player", { default: { frames: [0, 1, 2, 3], rate: 1/4 } }); 
-        var player = new Q.Player();
-        
-        Q.gameLoop(function(dt){
-          Q.clear();
-          background.render(Q.ctx); 
-          //player.play("default"); // You can use play here too.
-          player.update(dt);
-          player.render(Q.ctx);
-        });
+        Q.stageScene("mainLevel");
       });
+
     });
   </script>
   </head>

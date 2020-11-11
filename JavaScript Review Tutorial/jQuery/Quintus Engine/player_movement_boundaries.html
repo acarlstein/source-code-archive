@@ -13,9 +13,11 @@
   </style>
   <script>
     (function(){
+
       // Include Sprite module and set game's canvas size
-      var Q = Quintus().include("Sprites, Anim")
-                      .setup({width: 800, height: 480});
+      var Q = Quintus().include("Sprites, Anim, Input")
+                      .setup({width: 800, height: 480})
+                      .controls();
 
       // w: 31, h:32, left: 89, top: 166, right: 120, bottom: 198
       var backgroundUrl = "./images/bg5.jpg";
@@ -36,8 +38,21 @@
           
           this.add("animation");
           this.play("default");
+        },
+        step: function(dt){
+          if (Q.inputs['left']){
+            this.p.x -= this.p.speed;
+          }else if (Q.inputs['right']){
+            this.p.x += this.p.speed;
+          }
+          
+          this.p.x = clamp(this.p.x, 0 + (this.p.w / 2), Q.el.width - (this.p.w / 2));
         }
       });
+
+      var clamp = function(value, min, max){
+        return value < min ? min : (value > max ? max : value);
+      }
 
       Q.load([backgroundUrl, playerUrl, playerJsonUrl], function(){  
         var background = new Q.Sprite({ asset: backgroundUrl, 
@@ -63,9 +78,10 @@
           background.render(Q.ctx); 
           //player.play("default"); // You can use play here too.
           player.update(dt);
-          player.render(Q.ctx);
+          player.render(Q.ctx); 
         });
       });
+
     });
   </script>
   </head>

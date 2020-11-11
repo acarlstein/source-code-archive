@@ -14,8 +14,9 @@
   <script>
     (function(){
       // Include Sprite module and set game's canvas size
-      var Q = Quintus().include("Sprites, Anim")
-                      .setup({width: 800, height: 480});
+      var Q = Quintus().include("Sprites, Anim, Input")
+                      .setup({width: 800, height: 480})
+                      .controls();
 
       // w: 31, h:32, left: 89, top: 166, right: 120, bottom: 198
       var backgroundUrl = "./images/bg5.jpg";
@@ -64,6 +65,20 @@
           //player.play("default"); // You can use play here too.
           player.update(dt);
           player.render(Q.ctx);
+
+          
+          if (Q.inputs['left']){
+            console.log("left");
+          }else if (Q.inputs['right']){
+            console.log("right");
+          }
+          
+          if (Q.inputs['up']){
+            console.log("up");
+          }else if (Q.inputs['down']){
+            console.log("down");
+          } 
+          
         });
       });
     });
