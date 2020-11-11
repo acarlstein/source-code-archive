@@ -1,0 +1,60 @@
+<html>
+  <body>
+    <style>
+      /* Floating a box will shift it to the right or left of a line, with surrounding content flowing around it.*/
+
+      #navigation {
+          float: left;
+      }
+
+      #navigation2 {
+        float: right;
+      }
+
+      /* Note:  if you do not want the next box to wrap around the floating objects, you can apply the clear property:
+      - clear: left will clear left floated boxes
+      - clear: right will clear right floated boxes
+      - clear: both will clear both left and right floated boxes.
+      */
+
+      /* The content is moved to the right and left by 200px to give room to the navigation and navigation2 */
+      #content {
+          margin-left: 200px;
+          margin-right: 200px;
+      }
+
+      #footer {       
+          clear: both;
+          text-align: center;
+          background-color: red;
+      }
+    </style>
+
+    <div id="navigation">
+      <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="contact_us.html">Contact Us</a></li>
+          <li><a href="about_us.html">About us</a></li>
+      </ul>
+    </div>
+
+    <div id="navigation2">
+      <ul>
+          <li><a href="favorites.html">Favorites</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+    </div>
+
+    <div id="content">
+      <h1>Random Content</h1>
+      <p>Did you know that bla bla bla, bla bla, bla bla?</p>
+      <p>I don't care. Bla!</p>
+      <p>Bla! bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla blabla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla blabla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla blabla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla bla bla bla, bla bla, bla bla</p>
+    </div>
+
+    <div id="footer">
+      <p>Footer to the butt!</p>
+      <p>A footer that will appear underneath all columns, regardless of the length of any of them.</p>
+    </div>
+  </body>
+</html>

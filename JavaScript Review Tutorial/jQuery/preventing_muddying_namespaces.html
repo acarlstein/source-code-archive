@@ -1,0 +1,86 @@
+<html>
+  <head>
+    <script type="javascript/text" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+      /**
+       * Muddying namespaces means that we create multiple $.fn.name_of_our_stuff objects.
+       * This can lead to override existing stuff available by other plugins.
+       */
+      (function ( $ ) {
+        
+        var defaults = {
+          defaultText: "DEFAULT TEXT"
+          , background: "lightgray"
+          , borderStyle: "1px solid black"
+          , dottedBorderStyle: "2px dotted green"
+        };
+      
+        var settings;
+      
+        var methods = { 
+          init: function(options){
+            console.log("init()");
+            settings = $.extend({}, defaults, options);
+            console.log(settings);
+            return this;
+          }
+          , insertParagraph: function(text){
+            console.log("insertParagraph()");
+            text = (null == text || text === 'undefined') ? settings.defaultText : text;    
+            var p = document.createElement("p");
+            p.appendChild(document.createTextNode(text));
+            this.append(p);
+            return this;
+          }
+          , dottedBorder: function(){
+            this.css("border", settings.dottedBorderStyle);
+            return this;
+          }
+          , border: function(style){
+            console.log("border()");
+            style = (style == null || style === 'undefined') ? settings.borderStyle : style;
+            this.css("border", style);
+            return this;
+          }
+          , background: function(color){
+            console.log("background()")
+            color = (null == color || color === 'undefined') ? settings.background : color;
+            console.log("background: " + color);
+            this.css("background-color", color);
+            return this;
+          }
+        }
+        
+        // This helps to prevent muddying namespaces
+        // We call the init (with or without options) by default or our methods by name
+        $.fn.toolbox = function(methodNameOrOptions){
+          if (methods[methodNameOrOptions]){
+            var argumentArray = Array.prototype.slice.call(arguments, 1);      
+            return methods[ methodNameOrOptions ].apply(this, argumentArray);
+          } else if (typeof methodNameOrOptions === 'object' 
+                      || !methodNameOrOptions ){
+            return methods.init.apply( this, arguments );
+          }
+          $.error( 'Method ' +  methodOrOptions + ' does not exist on jQuery.toolbox' );
+        }
+      
+      }( jQuery ));
+      
+      function run(){
+        
+        console.log("run()");
+            
+        $("#container").toolbox({background: "yellow"})
+                        .toolbox('insertParagraph')
+                        .toolbox('insertParagraph', 'Hello World!')
+                        .toolbox('border', '3px dotted black')
+                        .toolbox('background');
+          
+      }
+	  </script>
+  </head>
+  <body>
+    <button onclick="run()">Run</button>
+    <div id="container"></div>
+  </body>
+</html>

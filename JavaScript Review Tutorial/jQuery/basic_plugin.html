@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <script type="javascript/text" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <style>
+      ul {
+        margin: 0;
+        margin-top: 10px;
+        padding: 0;
+      }
+     
+      ul li {
+        display: inline-block;
+        width: 100px;
+        text-align: center;
+      }
+    </style>
+    <script>
+      document.getElementById("container").innerHTML += "<p>Welcome!</p>";
+
+      $.fn.insertParagraph = function(text){
+        console.log("insertParagraph()");
+        var p = document.createElement("p");
+        p.appendChild(document.createTextNode(text));
+        this.append(p);
+        return this;
+      }
+
+      $.fn.border = function(style){
+        console.log("border()");
+        this.css("border", style);
+        return this;
+      }
+
+      $.fn.background = function(color){
+        console.log("background()");
+        this.css("background-color", color);
+        return this;
+      }
+
+      $.fn.rainbow = function(){
+        console.log("rainbow()");  
+        var colorList = ["red", "blue", "green", "orange", "purple", "brown"];  
+        return this.each(function(){    
+          var randomIndex = Math.floor(Math.random() * colorList.length);
+          var newColor = colorList[randomIndex];
+          $(this).css("color", newColor);
+        });
+      }
+
+      function run(){
+        console.log("run()");
+          
+        $("#container")
+          .insertParagraph("Thank you!")
+          .border("2px solid black")
+          .insertParagraph("You're welcome!")
+          .background("gray");
+        
+        $("ul > li").rainbow().css("border", "1px dotted darkgray");
+        
+        
+      }
+	  </script>
+  </head>
+  <body>
+    <button onclick="run()">Run</button>
+
+    <div id="container"></div>
+    
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+       
+  </body>
+</html>
